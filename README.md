@@ -1,6 +1,16 @@
 # Character-Level-Mini-Language-Model-for-Letter-Prediction
-This project is a character-level transformer (mini language model) built entirely from scratch for my AIML339. The model is trained on the Tiny Shakespeare dataset (approximately one million characters) to predict the next character in a sequence and generate Shakespeare-like text. It follows a GPT-style decoder-only architecture with embeddings, masked self-attention, feedforward layers, and residual connections.
+This project is a character-level transformer (mini language model) built entirely from scratch for my AIML339. The model is trained on the Tiny Shakespeare dataset (approximately one million characters) to predict the next character in a sequence and generate Shakespeare-like text. It follows a GPT-style decoder-only architecture. It explores attention mechanisms, autoregressive learning, and text generation under resource constraints.
+The implementation includes:
 
+-A fully custom transformer decoder (model.py)
+
+-Training pipeline with checkpointing and logging (train.py)
+
+-Evaluation and visualization tools for loss, accuracy, and perplexity (eval.py, visualize.py)
+
+-Sampling utilities for text generation with temperature control (sample.py)
+
+- ablation and fine-tuning tools (ablation_runner.py, compare_runs.py)
 ---
 
 ## Requirements
@@ -19,14 +29,14 @@ This project is a character-level transformer (mini language model) built entire
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-username/char-transformer.git
-   cd char-transformer
+   git clone https://github.com/Cody-Alexander/Character-Level-Mini-Language-Model-for-Letter-Prediction.git
+   cd Character-Level-Mini-Language-Model-for-Letter-Prediction
    ````
 
 2. **Install Dependencies:**
 
    ```bash
-   pip install torch numpy matplotlib tqdm seaborn
+   pip install -r requirements.txt
    ```
 
 3. **Download the Dataset:**
@@ -57,19 +67,34 @@ This will:
 * Generate text samples during training
 * Save a loss curve plot
 
-### Generate Text
+###Continue Training 
 
-Text samples are printed during training. You can also use the `generate()` function in `train.py` to create custom samples after training.
+You can resume from a checkpoint:
 
-### Visualize Attention
+```bash
+   python train.py --resume checkpoints/base_run.pt
+```
 
-Run the visualization script to produce attention heatmaps:
+###Evaluate Checkpoints
 
+Compute cross-entropy loss, token accuracy, and perplexity:
+```bash
+   python eval.py --checkpoint checkpoints/finetune_run.pt
+```
+
+###Compare Runs
+
+To visualize base vs fine-tuned performance:
+```bash
+   python compare_runs.py
+```
+
+###Visualize Results
+Plot training and validation curves:
 ```bash
 python visualize.py
 ```
-
-This will save heatmaps.
+All generated figures are automatically.
 
 ---
 
